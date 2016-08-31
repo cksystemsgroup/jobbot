@@ -36,7 +36,6 @@ if "USER" in os.environ:
 	user = os.environ['USER']
 
 machine = socket.gethostname()
-print(machine)
 
 msg = "Done."
 if len(sys.argv) > 1:
