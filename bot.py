@@ -42,8 +42,8 @@ msg = "Done."
 if len(sys.argv) > 1:
 	msg = sys.argv[1]
 
-r = requests.post(url, json = {'text': 'Job for user `{}` on machine `{}`: _{}_'.format(user, machine, msg)})
+r = requests.post(url, json = {'text': 'Job for user `{}` on machine `{}`: _{}_'.format(user, machine, msg), 'channel': '#servers'})
 
 if r.status_code != 200:
-	print("Server communication error: " + r.status_code)
+	print('Server communication error: ' + r.status_code)
 	sys.exit(-1)
