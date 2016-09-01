@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-# Copyright (c) 2016, the big-iron-bot authors.
+# Copyright (c) 2016, the jobbot authors.
 # Please see the AUTHORS file for details.
 
 # Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -26,9 +26,9 @@ import socket
 import requests
 
 try:
-	url = os.environ['BIGIRONBOT_WEBHOOK_URL']
+	url = os.environ['JOBBOT_WEBHOOK_URL']
 except Exception as e:
-	print("Webhook URL not found. Please set 'BIGIRONBOT_WEBHOOK_URL' environment variable.")
+	print("Webhook URL not found. Please set 'JOBBOT_WEBHOOK_URL' environment variable.")
 	sys.exit(-1)
 
 user = None
