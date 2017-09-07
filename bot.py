@@ -39,7 +39,7 @@ machine = socket.gethostname()
 
 msg = "Done."
 if len(sys.argv) > 1:
-	msg = sys.argv[1]
+	msg = ' '.join(sys.argv[1:])
 
 r = requests.post(url, json = {'text': 'Job for user `{}` on machine `{}`: _{}_'.format(user, machine, msg), 'channel': '#servers'})
 
