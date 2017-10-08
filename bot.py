@@ -41,7 +41,13 @@ msg = "Done."
 if len(sys.argv) > 1:
 	msg = ' '.join(sys.argv[1:])
 
-r = requests.post(url, json = {'text': 'Job for user `{}` on machine `{}`: _{}_'.format(user, machine, msg), 'channel': '#servers'})
+channel = '#servers'
+if 'JOBBOT_CHANNEL' in os.environ:
+	# If set to an empty string the message will be posted to the default
+	# channel as configured in the Custom Integration of the webhook in Slack.
+	channel = os.environ['JOBBOT_CHANNEL']
+
+r = requests.post(url, json = {'text': 'Job for user `{}` on machine `{}`: _{}_'.format(user, machine, msg), 'channel': channel})
 
 if r.status_code != 200:
 	print('Server communication error: ' + r.status_code)
