@@ -54,5 +54,5 @@ msg = ' '.join(args.message)
 r = requests.post(url, json = {'text': 'Job for user `{}` on machine `{}`: _{}_'.format(user, machine, msg), 'channel': args.channel})
 
 if r.status_code != 200:
-	print('Server communication error: ' + r.status_code)
+	print('Server communication error: ' + str(r.status_code))
 	sys.exit(-1)
