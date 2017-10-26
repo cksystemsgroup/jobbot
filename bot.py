@@ -22,8 +22,9 @@
 # SOFTWARE.
 
 import sys, os
-import socket
+import argparse
 import requests
+import socket
 
 try:
 	url = os.environ['JOBBOT_WEBHOOK_URL']
@@ -37,17 +38,20 @@ if "USER" in os.environ:
 
 machine = socket.gethostname()
 
-msg = "Done."
-if len(sys.argv) > 1:
-	msg = ' '.join(sys.argv[1:])
-
 channel = '#servers'
 if 'JOBBOT_CHANNEL' in os.environ:
 	# If set to an empty string the message will be posted to the default
 	# channel as configured in the Custom Integration of the webhook in Slack.
 	channel = os.environ['JOBBOT_CHANNEL']
 
-r = requests.post(url, json = {'text': 'Job for user `{}` on machine `{}`: _{}_'.format(user, machine, msg), 'channel': channel})
+parser =argparse.ArgumentParser(description='Post messages to a Slack channel')
+parser.add_argument('--channel', '-c', help="Target channel, default '" + channel + "'", default=channel)
+parser.add_argument('message', metavar='Message', nargs='+', help='Message to post', default='Done.')
+args = parser.parse_args()
+
+msg = ' '.join(args.message)
+
+r = requests.post(url, json = {'text': 'Job for user `{}` on machine `{}`: _{}_'.format(user, machine, msg), 'channel': args.channel})
 
 if r.status_code != 200:
 	print('Server communication error: ' + r.status_code)
